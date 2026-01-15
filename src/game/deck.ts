@@ -3,7 +3,7 @@ import type { Card } from "./gameTypes";
 import { cards } from "./cards";
 
 export interface DeckState {
-  history: string[]; // ids das cartas já jogadas
+  history: string[];
 }
 
 export function drawNextCard(deckHistory: string[] = []): Card {

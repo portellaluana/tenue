@@ -7,12 +7,12 @@ export const cards: Card[] = [
     text: "Um vídeo distorcido sobre seu governo viralizou nas redes sociais.",
     effects: {
       left: {
-        narrativa: +15,
-        instituicoes: -10,
+        narrativa: +20,
+        instituições: -20,
       },
       right: {
-        instituicoes: +10,
-        povo: -10,
+        instituições: +20,
+        povo: -20,
       },
     },
   },
@@ -22,12 +22,12 @@ export const cards: Card[] = [
     text: "O congresso exige concessões em troca de apoio político.",
     effects: {
       left: {
-        instituicoes: +15,
-        economia: -10,
+        instituições: +20,
+        economia: -20,
       },
       right: {
-        economia: +10,
-        instituicoes: -15,
+        economia: +20,
+        instituições: -20,
       },
     },
   },
@@ -37,12 +37,12 @@ export const cards: Card[] = [
     text: "Manifestações tomam as ruas do país.",
     effects: {
       left: {
-        povo: +15,
-        economia: -10,
+        povo: +20,
+        economia: -20,
       },
       right: {
-        povo: -15,
-        instituicoes: +10,
+        povo: -20,
+        instituições: +20,
       },
     },
   },
@@ -52,12 +52,12 @@ export const cards: Card[] = [
     text: "Indicadores apontam uma desaceleração econômica preocupante.",
     effects: {
       left: {
-        economia: +10,
-        narrativa: -10,
+        economia: +20,
+        narrativa: -20,
       },
       right: {
-        economia: -15,
-        povo: -10,
+        economia: -20,
+        povo: -20,
       },
     },
   },
@@ -67,12 +67,12 @@ export const cards: Card[] = [
     text: "A imprensa acusa o governo de autoritarismo.",
     effects: {
       left: {
-        narrativa: +10,
-        povo: -5,
+        narrativa: +20,
+        povo: -20,
       },
       right: {
-        narrativa: -15,
-        instituicoes: -10,
+        narrativa: -20,
+        instituições: -20,
       },
     },
   },

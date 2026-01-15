@@ -21,21 +21,31 @@ export function GameOver({ type, reason, onRestart }: Props) {
         padding: 32,
       }}
     >
-      <h2>{titles[type]}</h2>
+      <h1 style={{ color: "#f5f5f5", lineHeight: 0.8, marginBottom: 64 }}>
+        game <br />
+        over
+      </h1>
+      <h2 style={{ color: "#f5f5f5", margin: 0 }}>{titles[type]}</h2>
 
-      {reason && <p style={{ marginTop: 16, opacity: 0.8 }}>{reason}</p>}
+      {reason && (
+        <p style={{ color: "#f5f5f5", margin: 0, width: 300 }}>{reason}</p>
+      )}
 
       <button
         onClick={onRestart}
         style={{
-          marginTop: 32,
-          padding: "12px 24px",
-          borderRadius: 8,
-          border: "none",
+          marginTop: 64,
+          fontSize: 14,
+          padding: "12px 32px",
+          border: "solid 1px #f5f5f5",
+          backgroundColor: "transparent",
+          color: "#f5f5f5",
+          fontWeight: "medium",
           cursor: "pointer",
+          borderRadius: 50,
         }}
       >
-        Recomeçar
+        Reiniciar
       </button>
     </div>
   );

@@ -1,10 +1,9 @@
 .stack {
-  position: absolute;
-  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  pointer-events: none;
+  height: 420px;
+  width: 400px;
 }
 
 .card {

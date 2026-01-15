@@ -1,6 +1,6 @@
 //gameTypes
 
-export type AxisKey = "povo" | "instituicoes" | "narrativa" | "economia";
+export type AxisKey = "povo" | "instituições" | "narrativa" | "economia";
 
 export type Axes = Record<AxisKey, number>;
 

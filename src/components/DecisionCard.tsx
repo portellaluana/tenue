@@ -1,3 +1,4 @@
+//DecisionCard
 import { useEffect, useRef, useState } from "react";
 import cardFront from "../assets/cards/front/cards_2.png";
 import logo from "/white_icon.png";
@@ -31,30 +32,28 @@ export function DecisionCard({
 
   if (!isActive) return null;
 
-useEffect(() => {
-  // reset visual completo
-  setDragX(0);
-  setExitDirection(null);
-  setIsFlipped(false);
+  useEffect(() => {
+    setDragX(0);
+    setExitDirection(null);
+    setIsFlipped(false);
 
-  const t = setTimeout(() => {
-    setIsFlipped(true);
-  }, 600);
+    const t = setTimeout(() => {
+      setIsFlipped(true);
+    }, 600);
 
-  return () => clearTimeout(t);
-}, [text]);
+    return () => clearTimeout(t);
+  }, [text]);
 
-function handlePointerDown(e: React.PointerEvent) {
-  if (exitDirection) return;
+  function handlePointerDown(e: React.PointerEvent) {
+    if (exitDirection) return;
 
-  setIsDragging(true);
-  startX.current = e.clientX;
+    setIsDragging(true);
+    startX.current = e.clientX;
 
-  // 🔥 troca o topo no início do drag
-  onDragSideChange?.("start");
+    onDragSideChange?.("start");
 
-  (e.target as HTMLElement).setPointerCapture(e.pointerId);
-}
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+  }
 
   function handlePointerMove(e: React.PointerEvent) {
     if (!isDragging || exitDirection) return;
@@ -79,13 +78,22 @@ function handlePointerDown(e: React.PointerEvent) {
     (e.target as HTMLElement).releasePointerCapture(e.pointerId);
   }
 
-function triggerExit(direction: Decision) {
-  setExitDirection(direction);
+  function triggerExit(direction: Decision) {
+    setExitDirection(direction);
 
-  setTimeout(() => {
-    onDecision(direction);
-  }, 300);
-}
+    setTimeout(() => {
+      onDecision(direction);
+    }, 300);
+  }
+
+  const overlay =
+    isDragging && !exitDirection
+      ? dragX > PREVIEW_THRESHOLD
+        ? "right"
+        : dragX < -PREVIEW_THRESHOLD
+        ? "left"
+        : null
+      : null;
 
   return (
     <div
@@ -123,20 +131,21 @@ function triggerExit(direction: Decision) {
             userSelect: "none",
             touchAction: "none",
             transform: `
-              translateX(${exitDirection
-                ? exitDirection === "right"
-                  ? "100vw"
-                  : "-100vw"
-                : `${dragX}px`})
+              translateX(${
+                exitDirection
+                  ? exitDirection === "right"
+                    ? "100vw"
+                    : "-100vw"
+                  : `${dragX}px`
+              })
               rotateY(${isFlipped ? 180 : 0}deg)
               rotateZ(${dragX * 0.05}deg)
             `,
-transition: exitDirection
-  ? "transform 0.3s ease-out"
-  : isDragging
-  ? "none"
-  : "transform 0.4s ease",
-
+            transition: exitDirection
+              ? "transform 0.3s ease-out"
+              : isDragging
+              ? "none"
+              : "transform 0.4s ease",
           }}
         >
           <div
@@ -165,6 +174,45 @@ transition: exitDirection
               alignItems: "center",
             }}
           >
+            {overlay && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 80,
+                  borderRadius: "16px 16px 0 0",
+                  overflow: "hidden",
+                  background: "rgba(13, 13, 13, 0.41)",
+                  display: "flex",
+                  alignItems: "center",
+                  color: "#fff",
+                  fontWeight: 600,
+                  fontSize: 16,
+                  letterSpacing: 0.5,
+                  justifyContent:
+                    overlay === "right" ? "flex-start" : "flex-end",
+                  paddingLeft: overlay === "right" ? 16 : 0,
+                  paddingRight: overlay === "left" ? 16 : 0,
+                  textAlign: overlay === "right" ? "left" : "right",
+                  pointerEvents: "none",
+                  opacity: Math.min(Math.abs(dragX) / THRESHOLD, 1),
+                  transform: `scale(${
+                    0.95 + Math.min(Math.abs(dragX) / THRESHOLD, 1) * 0.05
+                  })`,
+                  transition: "opacity 0.1s ease, transform 0.1s ease",
+                  zIndex: 2,
+                  clipPath:
+                    overlay === "right"
+                      ? "polygon(0 0, 100% 0, 100% 50%, 0 100%, 0 100%)"
+                      : "polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 50%)",
+                }}
+              >
+                {overlay === "right" ? "Aceito" : "Rejeito"}
+              </div>
+            )}
+
             <img src={logo} style={{ width: 32 }} />
             <p
               style={{

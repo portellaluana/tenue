@@ -1,3 +1,4 @@
+//CardStack
 import { cardBacks } from "../assets/cards";
 import styles from "./CardStack.module.css";
 
@@ -6,11 +7,11 @@ const OFFSETS = [
   { x: 6, y: -4, r: 4 },
   { x: -2, y: -10, r: -2 },
   { x: 10, y: 6, r: 7 },
-  { x: 0, y: 0, r: 0 }, // topo
+  { x: 0, y: 0, r: 0 },
 ];
 
 interface Props {
-  step: number; // 👈 controla qual carta está no topo
+  step: number;
 }
 
 export function CardStack({ step }: Props) {
