@@ -1,17 +1,47 @@
-//decks
-import type { Card } from "./gameTypes";
 import { cards } from "./cards";
+import type { Card } from "./cardTypes";
+import type { AxisKey, GameState } from "./gameTypes";
 
-export interface DeckState {
-  history: string[];
+export function isCardAvailable(card: Card, state: GameState): boolean {
+  if (!card.conditions) return true;
+
+  const { axisBelow, axisAbove, played } = card.conditions;
+
+  if (played && !played.every((id) => state.deckHistory.includes(id))) {
+    return false;
+  }
+
+  if (axisBelow) {
+    for (const key of Object.keys(axisBelow) as AxisKey[]) {
+      if (state.axes[key] > axisBelow[key]!) return false;
+    }
+  }
+
+  if (axisAbove) {
+    for (const key of Object.keys(axisAbove) as AxisKey[]) {
+      if (state.axes[key] < axisAbove[key]!) return false;
+    }
+  }
+
+  if (!card.repeatable && state.deckHistory.includes(card.id)) {
+    return false;
+  }
+
+  return true;
 }
 
-export function drawNextCard(deckHistory: string[] = []): Card {
-  const availableCards = cards.filter((card) => !deckHistory.includes(card.id));
+export function drawNextCard(state: GameState): Card {
+  const availableCards = cards.filter((card) => isCardAvailable(card, state));
 
-  const pool = availableCards.length > 0 ? availableCards : cards;
+  const highTensionCards = availableCards.filter(
+    (card) => card.tensionLevel === "high"
+  );
 
-  const randomIndex = Math.floor(Math.random() * pool.length);
+  if (highTensionCards.length > 0) {
+    return highTensionCards[
+      Math.floor(Math.random() * highTensionCards.length)
+    ];
+  }
 
-  return pool[randomIndex];
+  return availableCards[Math.floor(Math.random() * availableCards.length)];
 }

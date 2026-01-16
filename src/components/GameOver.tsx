@@ -1,3 +1,5 @@
+//GameOver.tsx
+
 import type { GameOverType } from "../game/gameTypes";
 
 interface Props {

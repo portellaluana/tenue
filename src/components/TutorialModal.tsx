@@ -1,3 +1,4 @@
+//TutorialModal
 import { useEffect, useState } from "react";
 import gif from "../assets/gif/drag-instructions.gif";
 

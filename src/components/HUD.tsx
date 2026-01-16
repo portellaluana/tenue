@@ -1,6 +1,7 @@
 //HUD
 
-import type { Axes, AxisKey, Card, DecisionSide } from "../game/gameTypes";
+import type { Card } from "../game/cardTypes";
+import type { Axes, AxisKey, DecisionSide } from "../game/gameTypes";
 
 interface Props {
   axes: Axes;
@@ -58,7 +59,13 @@ export function HUD({ axes, previewSide, currentCard }: Props) {
                 alignItems: "anchor-center",
               }}
             >
-              <span style={{ textTransform: "uppercase", color: "#333E48" }}>
+              <span
+                style={{
+                  textTransform: "uppercase",
+                  color: "#333E48",
+                  width: "88px",
+                }}
+              >
                 {axis}
               </span>
             </div>
@@ -69,6 +76,7 @@ export function HUD({ axes, previewSide, currentCard }: Props) {
                 gap: 6,
                 alignItems: "center",
                 height: 16,
+                width: "100px",
               }}
             >
               {Array.from({ length: TOTAL_SQUARES }).map((_, i) => {
@@ -87,10 +95,12 @@ export function HUD({ axes, previewSide, currentCard }: Props) {
                   />
                 );
               })}
-              {preview !== 0 && (
+              {preview !== 0 ? (
                 <span style={{ color: "#333E48" }}>
                   {preview > 0 ? "↑" : "↓"}
                 </span>
+              ) : (
+                <span style={{ color: "#ffffff00" }}>↑</span>
               )}
             </div>
           </div>

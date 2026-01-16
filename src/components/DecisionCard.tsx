@@ -42,9 +42,10 @@ export function DecisionCard({
     }, 600);
 
     return () => clearTimeout(t);
-  }, [text]);
+  }, [text, count]);
 
   function handlePointerDown(e: React.PointerEvent) {
+    if (!isFlipped) return;
     if (exitDirection) return;
 
     setIsDragging(true);
@@ -110,7 +111,7 @@ export function DecisionCard({
       <div
         style={{
           width: 320,
-          height: 420,
+          height: 480,
           perspective: 1200,
           pointerEvents: "auto",
         }}

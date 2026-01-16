@@ -23,19 +23,20 @@ function App() {
     : "#333E48";
 
   function startGame() {
-    const firstCard = drawNextCard([]);
+    const firstCard = drawNextCard(initialState);
     dispatch({ type: "START_GAME", card: firstCard });
   }
 
   function handleDecision(side: DecisionSide) {
     if (state.isGameOver) return;
+    if (!state.currentCard) return;
 
     setPreviewSide(null);
 
     dispatch({
       type: "MAKE_DECISION",
       side,
-      nextCard: drawNextCard(state.deckHistory),
+      nextCard: drawNextCard(state),
     });
   }
 

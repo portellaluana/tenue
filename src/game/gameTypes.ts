@@ -1,19 +1,11 @@
-//gameTypes
+// gameTypes.ts
+import type { Card } from "./cardTypes";
 
 export type AxisKey = "povo" | "instituições" | "narrativa" | "economia";
 
 export type Axes = Record<AxisKey, number>;
 
 export type DecisionSide = "left" | "right";
-
-export interface Card {
-  id: string;
-  text: string;
-  effects: {
-    left: Partial<Axes>;
-    right: Partial<Axes>;
-  };
-}
 
 export type GameOverType =
   | "revolta-popular"
