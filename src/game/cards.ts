@@ -1,173 +1,242 @@
 import type { Card } from "./cardTypes";
 
 export const cards: Card[] = [
+  // introdução
   {
-    id: "fake-news-viral",
-    text: "Um vídeo distorcido sobre seu governo viraliza nas redes.",
+    id: "debate-secundario",
+    text: "Um tema secundário domina temporariamente o debate público.",
     effects: {
       left: { narrativa: -20 },
-      right: { narrativa: +20, povo: -20 },
+      right: { narrativa: +20 },
     },
   },
 
   {
-    id: "apoio-congresso",
-    text: "O sistema cobra concessões para manter apoio político.",
-    effects: {
-      left: { sistema: +20, economia: -20 },
-      right: { narrativa: +20, sistema: -20 },
-    },
-  },
-
-  {
-    id: "pressao-mercado",
-    text: "O mercado reage com cautela às decisões do governo.",
-    effects: {
-      left: { economia: +20, narrativa: -20 },
-      right: { povo: +20, economia: -20 },
-    },
-  },
-
-  {
-    id: "ataque-imprensa",
-    text: "A imprensa questiona a direção do governo.",
-    effects: {
-      left: { narrativa: -20 },
-      right: { narrativa: +20, povo: -20 },
-    },
-  },
-
-  {
-    id: "aliados-insatisfeitos",
-    text: "Aliados começam a demonstrar desconforto.",
+    id: "vazamento-parcial",
+    text: "Um vazamento parcial gera especulações iniciais.",
     effects: {
       left: { sistema: +20 },
       right: { narrativa: +20, sistema: -20 },
     },
   },
 
-  // desgaste
-
   {
-    id: "queda-popularidade",
-    text: "Pesquisas indicam queda na aprovação popular.",
-    conditions: {
-      axisBelow: { povo: 60 },
-    },
+    id: "comparacao-governos",
+    text: "Comparações com governos anteriores começam a surgir.",
     effects: {
-      left: { povo: +20 },
-      right: { economia: +20, narrativa: -20 },
+      left: { narrativa: -20 },
+      right: { povo: -20, narrativa: +20 },
     },
   },
 
   {
-    id: "boato-crise",
-    text: "Rumores de crise política se espalham.",
+    id: "reacao-setorial",
+    text: "Um setor reage com cautela a uma nova diretriz.",
+    effects: {
+      left: { economia: +20 },
+      right: { narrativa: +20, economia: -20 },
+    },
+  },
+
+  {
+    id: "decisao-tecnica-politica",
+    text: "Uma decisão técnica passa a ser tratada como escolha política.",
+    effects: {
+      left: { sistema: +20 },
+      right: { narrativa: +20 },
+    },
+  },
+
+  {
+    id: "ruido-interno",
+    text: "Um ruído interno aparece, mas sem repercussão imediata.",
+    effects: {
+      left: { sistema: +20 },
+      right: { narrativa: +20 },
+    },
+  },
+
+  {
+    id: "medida-popular-divide",
+    text: "Uma medida popular divide opiniões fora da base do governo.",
+    effects: {
+      left: { povo: +20 },
+      right: { narrativa: +20, povo: -20 },
+    },
+  },
+
+  {
+    id: "silencio-notado",
+    text: "Um silêncio estratégico começa a ser notado.",
+    effects: {
+      left: { narrativa: -20 },
+      right: { sistema: +20 },
+    },
+  },
+
+  // sinais de alerta
+  {
+    id: "base-cansaco",
+    text: "A base demonstra sinais de cansaço.",
+    conditions: {
+      axisBelow: { povo: 70 },
+    },
+    effects: {
+      left: { povo: +20 },
+      right: { narrativa: +20, povo: -20 },
+    },
+  },
+
+  {
+    id: "episodio-resgatado",
+    text: "Um episódio antigo é resgatado sob nova luz.",
+    conditions: {
+      axisBelow: { narrativa: 65 },
+    },
+    effects: {
+      left: { narrativa: -20 },
+      right: { sistema: -20 },
+    },
+  },
+
+  {
+    id: "imprensa-antecipa",
+    text: "A imprensa passa a antecipar crises antes de anúncios oficiais.",
     conditions: {
       axisBelow: { narrativa: 60 },
     },
     effects: {
       left: { narrativa: -20 },
-      right: { sistema: -20, narrativa: +20 },
+      right: { sistema: -20 },
     },
   },
 
   {
-    id: "escandalo-ministro",
-    text: "Um ministro próximo vira alvo de denúncias.",
+    id: "ausencia-resposta",
+    text: "A ausência de resposta vira parte da narrativa.",
     conditions: {
-      axisBelow: { sistema: 65 },
+      axisBelow: { narrativa: 60 },
     },
     effects: {
-      left: { sistema: +20, narrativa: -20 },
+      left: { narrativa: -20 },
+      right: { sistema: +20 },
+    },
+  },
+
+  {
+    id: "setor-insatisfeito",
+    text: "Um setor estratégico demonstra insatisfação contínua.",
+    conditions: {
+      axisBelow: { economia: 65 },
+    },
+    effects: {
+      left: { economia: +20 },
       right: { povo: -20 },
     },
   },
 
   {
-    id: "greve-setor-chave",
-    text: "Um setor estratégico entra em greve.",
+    id: "conflitos-somam",
+    text: "Pequenos conflitos começam a se somar.",
     conditions: {
-      axisBelow: { economia: 65 },
+      axisBelow: { sistema: 65 },
     },
     effects: {
-      left: { povo: +20, economia: -20 },
-      right: { economia: +20, povo: -20 },
+      left: { sistema: +20 },
+      right: { narrativa: +20, sistema: -20 },
     },
   },
 
   {
-    id: "crise-comunicacao",
-    text: "A comunicação do governo perde força.",
+    id: "oposicao-unifica",
+    text: "A oposição encontra um tema comum.",
+    conditions: {
+      axisBelow: { sistema: 60 },
+    },
+    effects: {
+      left: { sistema: +20 },
+      right: { povo: -20 },
+    },
+  },
+
+  {
+    id: "mercado-tom",
+    text: "O mercado reage mais ao tom do que ao conteúdo.",
+    conditions: {
+      axisBelow: { economia: 60 },
+    },
+    effects: {
+      left: { economia: +20 },
+      right: { narrativa: +20, economia: -20 },
+    },
+  },
+
+  // conflito
+  {
+    id: "confianca-institucional",
+    text: "A confiança nas instituições entra em debate aberto.",
+    conditions: {
+      axisBelow: { sistema: 60 },
+    },
+    effects: {
+      left: { sistema: +20 },
+      right: { narrativa: -20 },
+    },
+  },
+
+  {
+    id: "imprensa-confronto",
+    text: "A imprensa adota um tom de confronto explícito.",
     conditions: {
       axisBelow: { narrativa: 55 },
     },
     effects: {
       left: { narrativa: -20 },
-      right: { sistema: +20, povo: -20 },
+      right: { sistema: -20 },
     },
   },
 
-  // polarização
-
   {
-    id: "rua-polarizada",
-    text: "As ruas se dividem entre apoio e rejeição ao governo.",
+    id: "manifestacoes-recorrentes",
+    text: "Manifestações se tornam recorrentes e imprevisíveis.",
     conditions: {
-      axisBelow: { povo: 60 },
-      played: ["queda-popularidade", "boato-crise"],
+      axisBelow: { povo: 55 },
     },
     effects: {
-      left: { povo: +20, narrativa: -20 },
-      right: { sistema: +20, povo: -20 },
+      left: { povo: +20 },
+      right: { sistema: -20 },
     },
-    tensionLevel: "high",
   },
 
   {
-    id: "discursos-radicais",
-    text: "Discursos extremos dominam o debate público.",
-    conditions: {
-      axisBelow: { narrativa: 60 },
-    },
-    effects: {
-      left: { sistema: +20 },
-      right: { povo: -20, narrativa: +20 },
-    },
-    tensionLevel: "high",
-  },
-
-  // tensão
-
-  {
-    id: "tensao-institucional",
-    text: "O clima entre os poderes se torna insustentável.",
+    id: "aliados-cobram",
+    text: "Aliados estratégicos cobram definições imediatas.",
     conditions: {
       axisBelow: { sistema: 55 },
     },
     effects: {
       left: { sistema: +20 },
-      right: { economia: -20 },
+      right: { narrativa: -20 },
     },
-    tensionLevel: "high",
   },
 
   {
-    id: "investigacao-avanca",
-    text: "Investigações avançam sobre membros do governo.",
+    id: "base-fragmenta",
+    text: "A base política começa a se fragmentar.",
     conditions: {
-      axisBelow: { sistema: 50 },
+      axisBelow: { povo: 55 },
     },
     effects: {
-      left: { sistema: +20, narrativa: -20 },
-      right: { povo: -20 },
+      left: { povo: +20 },
+      right: { sistema: -20 },
     },
-    tensionLevel: "high",
   },
 
+  //pré-gameover
+
   {
-    id: "pedido-impeachment",
-    text: "Um pedido formal de afastamento ganha força.",
+    id: "pedido-afastamento",
+    text: "Um pedido formal de afastamento ganha apoio no sistema.",
     conditions: {
       axisBelow: { sistema: 45 },
       played: ["tensao-institucional"],
@@ -176,36 +245,30 @@ export const cards: Card[] = [
       left: { sistema: +20 },
       right: { povo: -20 },
     },
-    tensionLevel: "high",
   },
-
-  // gameover
 
   {
     id: "ruas-fora-controle",
-    text: "As ruas saem completamente do controle.",
+    text: "As ruas deixam de responder a qualquer sinal institucional.",
     conditions: {
       axisBelow: { povo: 40 },
     },
     effects: {
-      left: { povo: +20, economia: -20 },
+      left: { povo: +20 },
       right: { sistema: -20 },
     },
-    tensionLevel: "high",
   },
 
   {
-    id: "ruptura-institucional",
-    text: "O sistema entra em ruptura aberta.",
+    id: "perda-narrativa",
+    text: "Nenhuma versão oficial consegue se sustentar.",
     conditions: {
-      axisBelow: { sistema: 40 },
-      played: ["pedido-impeachment"],
+      axisBelow: { narrativa: 40 },
     },
     effects: {
-      left: { sistema: +20 },
-      right: { economia: -20 },
+      left: { narrativa: +20 },
+      right: { sistema: -20 },
     },
-    tensionLevel: "high",
   },
 
   {
@@ -218,19 +281,18 @@ export const cards: Card[] = [
       left: { economia: +20 },
       right: { povo: -20 },
     },
-    tensionLevel: "high",
   },
 
   {
-    id: "perda-controle-narrativa",
-    text: "O governo perde totalmente o controle da narrativa.",
+    id: "ruptura-sistema",
+    text: "O sistema entra em ruptura aberta.",
     conditions: {
-      axisBelow: { narrativa: 40 },
+      axisBelow: { sistema: 35 },
+      played: ["pedido-afastamento"],
     },
     effects: {
-      left: { narrativa: +20 },
-      right: { sistema: -20 },
+      left: { sistema: +20 },
+      right: { economia: -20 },
     },
-    tensionLevel: "high",
   },
 ];

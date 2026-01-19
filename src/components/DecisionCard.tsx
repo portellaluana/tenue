@@ -221,6 +221,7 @@ export function DecisionCard({
                 lineHeight: 1.4,
                 textAlign: "center",
                 color: "#f5f5f5",
+                maxWidth: "220px",
               }}
             >
               {text}

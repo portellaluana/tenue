@@ -92,9 +92,9 @@ function App() {
           axes={state.axes}
           currentCard={state.currentCard}
           previewSide={previewSide}
+          decisionsCount={state.decisionsCount}
         />
       )}
-
       {!state.currentCard && !state.isGameOver && (
         <button
           onClick={startGame}

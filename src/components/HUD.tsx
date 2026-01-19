@@ -1,4 +1,4 @@
-//HUD
+// HUD
 
 import type { Card } from "../game/cardTypes";
 import type { Axes, AxisKey, DecisionSide } from "../game/gameTypes";
@@ -7,6 +7,7 @@ interface Props {
   axes: Axes;
   previewSide: DecisionSide | null;
   currentCard: Card | null;
+  decisionsCount: number;
 }
 
 const TOTAL_SQUARES = 5;
@@ -17,14 +18,19 @@ function getPreviewEffect(
   side: DecisionSide | null
 ): number {
   if (!card || !side) return 0;
-  return card.effects[side][axis] ?? 0;
+  return card.effects[side]?.[axis] ?? 0;
 }
 
 function axisValueToSquares(value: number) {
   return Math.floor((value / 100) * TOTAL_SQUARES);
 }
 
-export function HUD({ axes, previewSide, currentCard }: Props) {
+function getArrowOpacity(decisionsCount: number) {
+  if (decisionsCount >= 5) return 0;
+  return Math.max(0, 1 - decisionsCount * 0.2);
+}
+
+export function HUD({ axes, previewSide, currentCard, decisionsCount }: Props) {
   return (
     <div
       style={{
@@ -39,6 +45,9 @@ export function HUD({ axes, previewSide, currentCard }: Props) {
         const preview = getPreviewEffect(axis, currentCard, previewSide);
         const filledSquares = axisValueToSquares(axes[axis]);
 
+        const opacity =
+          preview !== 0 && previewSide ? getArrowOpacity(decisionsCount) : 0;
+
         return (
           <div
             key={axis}
@@ -52,11 +61,10 @@ export function HUD({ axes, previewSide, currentCard }: Props) {
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between",
                 fontSize: 12,
                 opacity: 0.8,
                 marginRight: 16,
-                alignItems: "anchor-center",
+                alignItems: "center",
               }}
             >
               <span
@@ -95,13 +103,16 @@ export function HUD({ axes, previewSide, currentCard }: Props) {
                   />
                 );
               })}
-              {preview !== 0 ? (
-                <span style={{ color: "#333E48" }}>
-                  {preview > 0 ? "↑" : "↓"}
-                </span>
-              ) : (
-                <span style={{ color: "#ffffff00" }}>↑</span>
-              )}
+
+              <span
+                style={{
+                  color: "#333E48",
+                  opacity,
+                  transition: "opacity 0.3s ease",
+                }}
+              >
+                {previewSide && preview !== 0 ? (preview > 0 ? "↑" : "↓") : ""}
+              </span>
             </div>
           </div>
         );
