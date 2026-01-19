@@ -1,3 +1,4 @@
+//cardTypes
 import type { AxisKey, Axes } from "./gameTypes";
 
 export interface CardConditions {

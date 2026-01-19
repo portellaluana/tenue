@@ -19,8 +19,8 @@ function App() {
   const backgroundColor = state.isGameOver
     ? "#0766A8"
     : state.currentCard
-    ? "#f5f5f5"
-    : "#333E48";
+      ? "#f5f5f5"
+      : "#333E48";
 
   function startGame() {
     const firstCard = drawNextCard(initialState);
@@ -28,10 +28,7 @@ function App() {
   }
 
   function handleDecision(side: DecisionSide) {
-    if (state.isGameOver) return;
-    if (!state.currentCard) return;
-
-    setPreviewSide(null);
+    if (!state.currentCard || state.isGameOver) return;
 
     dispatch({
       type: "MAKE_DECISION",
@@ -102,7 +99,7 @@ function App() {
         <button
           onClick={startGame}
           style={{
-            marginTop: 58,
+            marginTop: 78,
             fontSize: 14,
             padding: "12px 24px",
             border: "none",

@@ -1,7 +1,7 @@
 // gameTypes.ts
 import type { Card } from "./cardTypes";
 
-export type AxisKey = "povo" | "instituições" | "narrativa" | "economia";
+export type AxisKey = "povo" | "sistema" | "narrativa" | "economia";
 
 export type Axes = Record<AxisKey, number>;
 

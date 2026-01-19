@@ -4,7 +4,7 @@ import type { Axes, GameAction, GameOverType, GameState } from "./gameTypes";
 export const initialState: GameState = {
   axes: {
     povo: 100,
-    instituições: 100,
+    sistema: 100,
     narrativa: 100,
     economia: 100,
   },
@@ -29,7 +29,7 @@ function checkGameOver(
     };
   }
 
-  if (axes.instituições <= 0) {
+  if (axes.sistema <= 0) {
     return {
       type: "impeachment",
       reason: "As instituições romperam com o governo.",
@@ -72,9 +72,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
       const newAxes: Axes = {
         povo: clamp(state.axes.povo + (effects.povo ?? 0)),
-        instituições: clamp(
-          state.axes.instituições + (effects.instituições ?? 0)
-        ),
+        sistema: clamp(state.axes.sistema + (effects.sistema ?? 0)),
         narrativa: clamp(state.axes.narrativa + (effects.narrativa ?? 0)),
         economia: clamp(state.axes.economia + (effects.economia ?? 0)),
       };

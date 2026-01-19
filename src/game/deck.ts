@@ -1,29 +1,48 @@
+// deck.ts
 import { cards } from "./cards";
 import type { Card } from "./cardTypes";
-import type { AxisKey, GameState } from "./gameTypes";
+import type { GameState, AxisKey } from "./gameTypes";
+
+function checkAxisBelow(
+  axes: GameState["axes"],
+  conditions?: Partial<Record<AxisKey, number>>
+) {
+  if (!conditions) return true;
+
+  return Object.entries(conditions).every(
+    ([axis, value]) => axes[axis as AxisKey] < value
+  );
+}
+
+function checkAxisAbove(
+  axes: GameState["axes"],
+  conditions?: Partial<Record<AxisKey, number>>
+) {
+  if (!conditions) return true;
+
+  return Object.entries(conditions).every(
+    ([axis, value]) => axes[axis as AxisKey] > value
+  );
+}
 
 export function isCardAvailable(card: Card, state: GameState): boolean {
-  if (!card.conditions) return true;
-
-  const { axisBelow, axisAbove, played } = card.conditions;
-
-  if (played && !played.every((id) => state.deckHistory.includes(id))) {
+  if (!card.repeatable && state.deckHistory.includes(card.id)) {
     return false;
   }
 
-  if (axisBelow) {
-    for (const key of Object.keys(axisBelow) as AxisKey[]) {
-      if (state.axes[key] > axisBelow[key]!) return false;
+  if (card.conditions?.axisBelow) {
+    if (!checkAxisBelow(state.axes, card.conditions.axisBelow)) {
+      return false;
     }
   }
 
-  if (axisAbove) {
-    for (const key of Object.keys(axisAbove) as AxisKey[]) {
-      if (state.axes[key] < axisAbove[key]!) return false;
+  if (card.conditions?.axisAbove) {
+    if (!checkAxisAbove(state.axes, card.conditions.axisAbove)) {
+      return false;
     }
   }
 
-  if (!card.repeatable && state.deckHistory.includes(card.id)) {
+  if (card.tensionLevel === "high" && state.decisionsCount < 6) {
     return false;
   }
 
@@ -33,14 +52,8 @@ export function isCardAvailable(card: Card, state: GameState): boolean {
 export function drawNextCard(state: GameState): Card {
   const availableCards = cards.filter((card) => isCardAvailable(card, state));
 
-  const highTensionCards = availableCards.filter(
-    (card) => card.tensionLevel === "high"
-  );
-
-  if (highTensionCards.length > 0) {
-    return highTensionCards[
-      Math.floor(Math.random() * highTensionCards.length)
-    ];
+  if (availableCards.length === 0) {
+    return cards[0];
   }
 
   return availableCards[Math.floor(Math.random() * availableCards.length)];

@@ -92,8 +92,8 @@ export function DecisionCard({
       ? dragX > PREVIEW_THRESHOLD
         ? "right"
         : dragX < -PREVIEW_THRESHOLD
-        ? "left"
-        : null
+          ? "left"
+          : null
       : null;
 
   return (
@@ -145,8 +145,8 @@ export function DecisionCard({
             transition: exitDirection
               ? "transform 0.3s ease-out"
               : isDragging
-              ? "none"
-              : "transform 0.4s ease",
+                ? "none"
+                : "transform 0.4s ease",
           }}
         >
           <div
@@ -210,7 +210,7 @@ export function DecisionCard({
                       : "polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 50%)",
                 }}
               >
-                {overlay === "right" ? "Aceito" : "Rejeito"}
+                {overlay === "right" ? "Reagir" : "Ignorar"}
               </div>
             )}
 
